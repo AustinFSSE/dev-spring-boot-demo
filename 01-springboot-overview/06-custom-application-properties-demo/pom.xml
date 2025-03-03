@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.alm</groupId>
-    <artifactId>04-springboot-security-demo</artifactId>
+    <artifactId>06-custom-application-properties-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>FirstSpringBootApp</name>
     <description>FirstSpringBootApp</description>
