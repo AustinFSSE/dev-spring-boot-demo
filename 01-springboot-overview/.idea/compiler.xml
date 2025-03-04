@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="04-springboot-security-demo" />
+        <module name="02-dev-tools-demo (1)" />
+        <module name="01-FirstSpringBootApp" />
+        <module name="06-custom-application-properties-demo" />
+        <module name="04-springboot-security-demo (1)" />
+        <module name="02-dev-tools-demo" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="01-FirstSpringBootApp" options="-parameters" />
+      <module name="02-dev-tools-demo" options="-parameters" />
+      <module name="02-dev-tools-demo (1)" options="-parameters" />
+      <module name="04-springboot-security-demo" options="-parameters" />
+      <module name="04-springboot-security-demo (1)" options="-parameters" />
+      <module name="06-custom-application-properties-demo" options="-parameters" />
+    </option>
+  </component>
+</project>

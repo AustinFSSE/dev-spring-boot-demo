@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/02-dev-tools-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/03-dev-actuator-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/05-command-line-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/01-FirstSpringBootApp/pom.xml" />
+        <option value="$PROJECT_DIR$/04-springboot-security-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/06-custom-application-properties-demo/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
