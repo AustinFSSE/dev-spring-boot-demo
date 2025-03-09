@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CrudDemoApplication {
 
@@ -17,7 +19,10 @@ public class CrudDemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createStudent(studentDAO);
+//			createStudent(studentDAO);
+//			readStudent(studentDAO);
+//			updateStudent(studentDAO);
+			queryForStudents(studentDAO);
 		};
 	}
 	private void createStudent(StudentDAO studentDAO) {
@@ -28,7 +33,47 @@ public class CrudDemoApplication {
 		System.out.println("Saving student object!");
 		studentDAO.save(student);
 
+		int theID = student.getId();
+		System.out.println("Saved Student. Generated id: " + theID);
+
+
+	}
+	private void readStudent(StudentDAO studentDAO) {
+		System.out.println("Creating new student object!");
+		Student student = new Student("Alonah", "Mart in", "alonahmartin@ivytech.edu");
+
+		System.out.println("Saving student object!");
+		studentDAO.save(student);
+
 		System.out.println("Saved Student. Generated id: " + student.getId());
+
+		int theID = student.getId();
+		System.out.println("Retrieving student id " + theID);
+		Student retrievedStudent = studentDAO.findById(theID);
+
+		System.out.println("Retrieved student id: " + retrievedStudent);
+
+	}
+	private void updateStudent(StudentDAO studentDAO) {
+		System.out.println("Creating first student object!");
+		Student student = new Student("Alonah", "Martin", "alonahmartin@ivytech.edu");
+
+		System.out.println("Saving student object!");
+		studentDAO.save(student);
+
+		System.out.println("Creating second student object!");
+		Student student1 = new Student("Austin", "Martin", "amartin405@ivytech.edu");
+
+		System.out.println("Saving student1 object!");
+		studentDAO.save(student1);
+	}
+	private void queryForStudents(StudentDAO studentDAO) {
+
+		List <Student> students = studentDAO.findAll();
+		System.out.println("Retrieving all students!");
+		for (Student student : students) {
+			System.out.println(student);
+		}
 	}
 
 }
