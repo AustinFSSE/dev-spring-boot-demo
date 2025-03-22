@@ -7,11 +7,30 @@
         <body>
         <h3>Student Registration Form</h3>
         <form th:action="@{/processStudentForm}" th:object="${student}" method="post">
-        First Name: <input type="text" th:field="${student.firstName}"/>
-        <br><br>
-        Last Name: <input type="text" th:field="${student.lastName}"/>
-        <br><br>
-        <input type="submit" value="Submit">
+        First Name: <label>
+            <input type="text" th:field="${student.firstName}"/>
+        </label>
+            <br><br>
+        Last Name: <label>
+            <input type="text" th:field="${student.lastName}"/>
+        </label>
+            <br><br>
+        Pick your favorite programming language:
+            <label>
+                <input type="radio" th:field="${student.language}"
+                                    th:each="language : ${languages}"
+                                    th:value="${language}"
+                                    th:text="${language}"
+                />
+            </label>
+            <br><br>
+        Country:
+            <label>
+                <select th:field="${student.country}">
+                    <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+                </select>
+            </label>
+            <input type="submit" value="Submit">
         </form>
 
         </body>
