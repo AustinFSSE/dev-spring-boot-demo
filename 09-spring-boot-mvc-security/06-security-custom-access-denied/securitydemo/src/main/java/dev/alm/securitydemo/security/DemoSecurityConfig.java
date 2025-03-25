@@ -3,6 +3,7 @@ package dev.alm.securitydemo.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -36,16 +37,24 @@ public class DemoSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(configurer ->
-                configurer.anyRequest().authenticated()
+                configurer
+                        .requestMatchers("/").hasRole("EMPLOYEE")
+                        .requestMatchers("/leaders/**").hasRole("MANAGER")
+                        .requestMatchers("/systems/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form ->
                         form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/authenticate")
-                                .permitAll()
-                );
+                                .permitAll())
+                .logout(LogoutConfigurer::permitAll)
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied"));
         return http.build();
     }
+
+
 }
 
 
