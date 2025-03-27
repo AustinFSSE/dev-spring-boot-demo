@@ -2,8 +2,9 @@ package dev.alm.advanceddemo;
 
 import dev.alm.advanceddemo.dao.AppDao;
 import dev.alm.advanceddemo.entity.Course;
-import dev.alm.advanceddemo.entity.Instructor;
-import dev.alm.advanceddemo.entity.InstructorDetail;
+/*import dev.alm.advanceddemo.entity.Instructor;
+import dev.alm.advanceddemo.entity.InstructorDetail;*/
+import dev.alm.advanceddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,24 +23,51 @@ public class AdvanceddemoApplication {
     public CommandLineRunner commandLineRunner(AppDao appDao) {
 
         return runner -> {
-//            createInstructor(appDao);
-//            findInstructor(appDao);
-//            deleteInstructor(appDao);
-//            findInstructorDetail(appDao);
-//            deleteInstructorDetail(appDao);
-//            createInstructorWithCourses(appDao);
-//            findInstructorWithCourses(appDao);
-//            findCoursersForInstructor(appDao);
-//            findInstructorWithCoursesJoinFetch(appDao);
-//            updateInstructor(appDao);
-//            updateCourse(appDao);
-//            deleteInstructor(appDao);
-            deleteCourse(appDao);
+
+            createCourseAndReviews(appDao);
+//            retrieveCourseAndReviews(appDao);
+//            deleteCourseAndReviews(appDao);
 
         };
     }
 
-    private void deleteCourse(AppDao appDao) {
+    private void deleteCourseAndReviews(AppDao appDao) {
+
+        int courseId = 10;
+        System.out.println("Deleting course " + courseId);
+        appDao.deleteCourseById(courseId);
+        System.out.println("Deleted course!");
+    }
+
+    private void retrieveCourseAndReviews(AppDao appDao) {
+        // get the course and reviews
+        int courseId = 10;
+        Course course = appDao.findCourseAndReviewsByCourseId(courseId);
+        // print the course
+        System.out.println("Course found: " + course);
+        // print the reviews
+        List<Review> reviews = course.getReviews();
+        for (Review review : reviews) {
+            System.out.println(review);
+        }
+    }
+
+    private void createCourseAndReviews(AppDao appDao) {
+
+        // create a course
+        Course course = new Course("Backend is the Best!");
+        // add some reviews
+        course.addReview(new Review("Great course - 4 stars"));
+        course.addReview(new Review("Good course - 3 stars"));
+        course.addReview(new Review("Excellent course - 5 stars"));
+        course.addReview(new Review("Bad course - 1 stars"));
+
+        // save the course
+        System.out.println("Saving course: " + course);
+        appDao.save(course);
+    }
+
+    /*private void deleteCourse(AppDao appDao) {
         int id = 10;
 
         System.out.println("Deleting course with id " + id);
@@ -228,6 +256,6 @@ public class AdvanceddemoApplication {
 
         System.out.println("Created Instructor: " + instructor);
         System.out.println("Created InstructorDetail: " + instructor1);
-    }
+    }*/
 
 }

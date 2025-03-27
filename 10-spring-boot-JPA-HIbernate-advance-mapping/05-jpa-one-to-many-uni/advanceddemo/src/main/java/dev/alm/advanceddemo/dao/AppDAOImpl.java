@@ -3,6 +3,7 @@ package dev.alm.advanceddemo.dao;
 import dev.alm.advanceddemo.entity.Course;
 import dev.alm.advanceddemo.entity.Instructor;
 import dev.alm.advanceddemo.entity.InstructorDetail;
+import dev.alm.advanceddemo.entity.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,5 +130,23 @@ public class AppDAOImpl implements AppDao{
 
         // delete the course
         entityManager.remove(course);
+    }
+
+    @Override
+    @Transactional
+    public void save(Course course) {
+        entityManager.persist(course);
+    }
+
+    @Override
+    public Course findCourseAndReviewsByCourseId(int id) {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c "
+                                                                + "join fetch c.reviews "
+                                                                + "where c.id = :data", Course.class);
+        query.setParameter("data", id);
+
+        Course course = query.getSingleResult();
+
+        return course;
     }
 }
