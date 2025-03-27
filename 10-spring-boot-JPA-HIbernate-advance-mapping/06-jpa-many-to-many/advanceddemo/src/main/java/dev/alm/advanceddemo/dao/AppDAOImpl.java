@@ -1,15 +1,13 @@
 package dev.alm.advanceddemo.dao;
 
-import dev.alm.advanceddemo.entity.Course;
-import dev.alm.advanceddemo.entity.Instructor;
-import dev.alm.advanceddemo.entity.InstructorDetail;
-import dev.alm.advanceddemo.entity.Review;
+import dev.alm.advanceddemo.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
@@ -148,5 +146,51 @@ public class AppDAOImpl implements AppDao{
         Course course = query.getSingleResult();
 
         return course;
+    }
+
+    @Override
+    public Course findCourseAndStudentsByCourseId(int id) {
+
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c "
+                                                                + "join fetch c.students "
+                                                                + "where c.id = :data", Course.class);
+        query.setParameter("data", id);
+        Course course = query.getSingleResult();
+        return course;
+    }
+
+    @Override
+    public Student findStudentAndCoursesByStudentId(int id) {
+
+        TypedQuery<Student> query = entityManager.createQuery("select s from Student s "
+                                                                + "join fetch s.courses "
+                                                                + "where s.id = :data", Student.class);
+        query.setParameter("data", id);
+
+        Student student = query.getSingleResult();
+
+        return student;
+    }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
+
+    @Override
+    @Transactional
+    public void deleteStudentById(int id) {
+
+        // retrieve the student
+        Student student = entityManager.find(Student.class, id);
+        // get the courses
+        List<Course> courses = student.getCourses();
+        // break association of all courses for the student
+        for (Course course : courses) {
+            course.getStudents().remove(student);
+        }
+        entityManager.remove(student);
+
     }
 }

@@ -3,6 +3,7 @@ package dev.alm.advanceddemo.dao;
 import dev.alm.advanceddemo.entity.Course;
 import dev.alm.advanceddemo.entity.Instructor;
 import dev.alm.advanceddemo.entity.InstructorDetail;
+import dev.alm.advanceddemo.entity.Student;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -36,5 +37,13 @@ public interface AppDao {
     void save(Course course);
 
     Course findCourseAndReviewsByCourseId(int id);
+
+    Course findCourseAndStudentsByCourseId(int id);
+
+    Student findStudentAndCoursesByStudentId(int id);
+
+    void update(Student student);
+
+    void deleteStudentById(int id);
 
 }
