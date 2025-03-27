@@ -31,15 +31,34 @@ public class AdvanceddemoApplication {
 //            findInstructorWithCourses(appDao);
 //            findCoursersForInstructor(appDao);
 //            findInstructorWithCoursesJoinFetch(appDao);
-            updateInstructor(appDao);
+//            updateInstructor(appDao);
+//            updateCourse(appDao);
+            deleteInstructor(appDao);
 
         };
+    }
+
+    private void updateCourse(AppDao appDao) {
+        int id = 10;
+        // find course
+        Course course = appDao.findCourseById(id);
+        System.out.println("Course: " + course);
+
+        // change the course title
+        System.out.println("Updating course...");
+        course.setTitle("Java Spring - Masterclass");
+
+        // execute the change
+        appDao.update(course);
+
+        System.out.println("Course: " + course);
+        System.out.println("DONE!");
     }
 
     private void updateInstructor(AppDao appDao) {
 
         int id = 1;
-        
+
         // find the instructor
         Instructor instructor = appDao.findInstructorById(id);
         System.out.println("Instructor: " + instructor);

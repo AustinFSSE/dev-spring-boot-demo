@@ -38,6 +38,14 @@ public class AppDAOImpl implements AppDao{
         // retrieve the instructor
         Instructor instructor = findInstructorById(id);
 
+        // get the courses
+        List<Course> courses = instructor.getCourses();
+
+        // break association with all courses for the instructor
+        for (Course course : courses) {
+            course.setInstructor(null);
+        }
+
         // delete the instructor
         entityManager.remove(instructor);
     }
@@ -99,5 +107,16 @@ public class AppDAOImpl implements AppDao{
     @Transactional
     public void update(Instructor instructor) {
         entityManager.merge(instructor);
+    }
+
+    @Override
+    @Transactional
+    public void update(Course course) {
+        entityManager.merge(course);
+    }
+
+    @Override
+    public Course findCourseById(int id) {
+        return entityManager.find(Course.class, id);
     }
 }
