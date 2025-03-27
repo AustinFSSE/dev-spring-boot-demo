@@ -1,6 +1,7 @@
 package dev.alm.advanceddemo.dao;
 
 import dev.alm.advanceddemo.entity.Instructor;
+import dev.alm.advanceddemo.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,8 +26,9 @@ public class AppDAOImpl implements AppDao{
     public Instructor findInstructorById(int id){
         return entityManager.find(Instructor.class, id);
     }
-    @Transactional
+
     @Override
+    @Transactional
     public void deleteInstructorById(int id){
 
         // retrieve the instructor
@@ -34,5 +36,24 @@ public class AppDAOImpl implements AppDao{
 
         // delete the instructor
         entityManager.remove(instructor);
+    }
+
+    @Override
+    public InstructorDetail findInstructorDetailById(int id) {
+        return entityManager.find(InstructorDetail.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteInstructorDetailById(int id) {
+
+        InstructorDetail instructorDetail = findInstructorDetailById(id);
+
+        // remove the associated object reference
+        //
+         // break the bidirectional link
+        instructorDetail.getInstructor().setInstructorDetail(null);
+        entityManager.remove(instructorDetail);
+        System.out.println("instructorDetail: " + instructorDetail + " deleted!");
     }
 }
